@@ -1,0 +1,9 @@
+# Godot
+.godot/
+.import/
+*.import
+export.cfg
+export_presets.cfg
+build/
+*.tmp
+.DS_Store

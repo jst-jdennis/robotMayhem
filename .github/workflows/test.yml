@@ -1,0 +1,24 @@
+name: Smoke test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Godot 4.3
+        run: |
+          curl -sSL -o godot.zip https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip
+          unzip -q godot.zip
+          chmod +x Godot_v4.3-stable_linux.x86_64
+          mv Godot_v4.3-stable_linux.x86_64 godot
+
+      - name: Import project
+        run: ./godot --headless --path . --import
+
+      - name: Run smoke test
+        run: ./godot --headless --path . res://tests/smoke_test.tscn --quit-after 600 2>&1 | tee test.log; grep -q "ALL TESTS PASSED" test.log
