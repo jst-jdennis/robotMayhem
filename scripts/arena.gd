@@ -22,27 +22,12 @@ func _ready() -> void:
 
 
 func _build_arena() -> void:
-	var sky := ColorRect.new()
-	sky.color = Color("#283048")
-	sky.size = Vector2(1280, 720)
-	add_child(sky)
-
-	# A few background "buildings" so the arena isn't just flat colour.
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 42
-	for i in range(14):
-		var b := ColorRect.new()
-		var h := rng.randf_range(80, 320)
-		b.color = Color("#1f2740")
-		b.position = Vector2(i * 96 - 20, FLOOR_Y - h)
-		b.size = Vector2(70, h)
-		add_child(b)
-
-	var floor_rect := ColorRect.new()
-	floor_rect.color = Color("#3d4a5c")
-	floor_rect.position = Vector2(0, FLOOR_Y)
-	floor_rect.size = Vector2(1280, 100)
-	add_child(floor_rect)
+	# The painted background: sky, sun, city, floor and platform stripes.
+	var backdrop := ArenaBackdrop.new()
+	backdrop.floor_y = FLOOR_Y
+	backdrop.platform_xs = [200.0, 1080.0]
+	backdrop.platform_y = 450.0
+	add_child(backdrop)
 
 	var ground := StaticBody2D.new()
 	var shape := CollisionShape2D.new()
@@ -64,11 +49,6 @@ func _build_arena() -> void:
 		ps.one_way_collision = true
 		plat.add_child(ps)
 		add_child(plat)
-		var pv := ColorRect.new()
-		pv.color = Color("#5c6f86")
-		pv.position = Vector2(x - 110, 450)
-		pv.size = Vector2(220, 20)
-		add_child(pv)
 
 
 func _build_hud() -> void:
@@ -107,6 +87,9 @@ func _build_hud() -> void:
 	message = Label.new()
 	message.add_theme_font_size_override("font_size", 80)
 	message.add_theme_color_override("font_color", Color("#ffcc00"))
+	# A dark outline keeps the words easy to read on the bright sky.
+	message.add_theme_color_override("font_outline_color", Color("#1b1433"))
+	message.add_theme_constant_override("outline_size", 16)
 	message.anchor_left = 0.5
 	message.anchor_right = 0.5
 	message.grow_horizontal = Control.GROW_DIRECTION_BOTH
