@@ -69,6 +69,7 @@ scripts/
   arena.gd           The fight, health bars and round wins
   arena_backdrop.gd  Paints the arena: sunset sky, city, floor
   game_state.gd      Remembers both players' robots and the score
+  music.gd           Chiptune music made from maths (no sound files)
 tests/smoke_test.*   Automatic test that builds robots and plays a fake round
 docs/                Design notes and the console plan
 ```

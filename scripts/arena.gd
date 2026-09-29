@@ -15,6 +15,7 @@ var fight_started := false
 
 
 func _ready() -> void:
+	Music.play("fight")
 	_build_arena()
 	_build_hud()
 	_spawn_robots()

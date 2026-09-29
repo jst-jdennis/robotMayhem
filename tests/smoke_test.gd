@@ -80,6 +80,20 @@ func _ready() -> void:
 	a._land_hit()
 	check(b.hp == before, "a swing out of reach does nothing")
 
+	print("Music")
+	check(Music.song_name == "fight", "the fight song plays in the arena")
+	Music.play("menu")
+	check(Music.song_name == "menu", "the menu song can be picked")
+	var samples: PackedVector2Array = Music.make_samples(22050)
+	var loudest := 0.0
+	for smp in samples:
+		loudest = maxf(loudest, absf(smp.x))
+	check(loudest > 0.05 and loudest <= 1.0, "one second of music makes sound without being too loud (%.2f)" % loudest)
+	Music.toggle_mute()
+	check(Music.muted, "music can be muted")
+	Music.toggle_mute()
+	check(not Music.muted, "music can be turned back on")
+
 	if failures == 0:
 		print("ALL TESTS PASSED")
 		get_tree().quit(0)
