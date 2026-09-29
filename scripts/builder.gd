@@ -16,6 +16,7 @@ var time := 0.0
 
 
 func _ready() -> void:
+	Music.play("menu")
 	player = GameState.building_player
 	_build_ui()
 	_refresh()

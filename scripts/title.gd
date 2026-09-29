@@ -7,6 +7,7 @@ var time := 0.0
 
 
 func _ready() -> void:
+	Music.play("menu")
 	var bg := ColorRect.new()
 	bg.color = Color("#1e2233")
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -41,6 +42,16 @@ func _ready() -> void:
 	prompt.position = Vector2(0, 600)
 	prompt.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	add_child(prompt)
+
+	var music_hint := Label.new()
+	music_hint.text = "Music on/off: M key or the SELECT button"
+	music_hint.add_theme_font_size_override("font_size", 20)
+	music_hint.add_theme_color_override("font_color", Color("#aab4c0"))
+	music_hint.anchor_left = 0.5
+	music_hint.anchor_right = 0.5
+	music_hint.position = Vector2(0, 660)
+	music_hint.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	add_child(music_hint)
 
 	art1 = RobotArt.new()
 	art1.set_config({"head": 0, "body": 0, "legs": 0, "weapon": 2})
