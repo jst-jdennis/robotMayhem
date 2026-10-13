@@ -71,6 +71,11 @@ scripts/
   game_state.gd      Remembers both players' robots and the score
   music.gd           Chiptune music made from maths (no sound files)
 tests/smoke_test.*   Automatic test that builds robots and plays a fake round
+tools/
+  demo_video.*       A "demo director" that plays the game by itself for a video
+  build_release.sh   Makes the web build and gameplay video in release/
+release/             Ready-to-upload files for game websites (see below)
+export_presets.cfg   Export settings for the web build
 docs/                Design notes and the console plan
 ```
 
@@ -81,6 +86,20 @@ godot --headless --path . res://tests/smoke_test.tscn --quit-after 600
 ```
 
 Prints `ALL TESTS PASSED` when everything works. GitHub runs this on every push.
+
+## Putting it on a game website (like Poki)
+
+The `release/` folder has two ready-made files:
+
+- **`robot-mayhem-web.zip`** – the playable browser build. Upload this zip
+  as-is; `index.html` is at the top of the zip. To try it yourself, unzip it
+  and run `python3 -m http.server` inside the folder, then open
+  http://localhost:8000 (double-clicking `index.html` won't work).
+- **`robot-mayhem-gameplay.mp4`** – a 2-minute video of the game playing
+  itself: title screen, both players building, then a full 5-round match.
+
+To make fresh copies after changing the game, run `tools/build_release.sh`
+(it explains what it needs at the top).
 
 ## Getting onto Switch and PlayStation
 
