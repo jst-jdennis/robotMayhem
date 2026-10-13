@@ -64,6 +64,9 @@ func _ready() -> void:
 	player = AudioStreamPlayer.new()
 	player.stream = gen
 	player.volume_db = -4.0
+	# Web browsers normally play sounds a simpler way that can't do
+	# music made from maths, so ask for the "stream" way instead.
+	player.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 	add_child(player)
 
 
